@@ -37,3 +37,58 @@ class Graph:
 
     def position(self, node):
         return self._positions.get(node, (0, 0))
+    
+
+
+
+def dijkstra(graph, start, goal=None):
+
+    dist = {node: math.inf for node in graph.nodes()}
+    prev = {node: None for node in graph.nodes()}
+    visited = {node: False for node in graph.nodes()}
+    dist[start] = 0
+
+    remaining = set(graph.nodes())
+    while remaining:
+        current = min(remaining, key=lambda n: dist[n])
+        if dist[current] == math.inf:
+            break
+        remaining.remove(current)
+        visited[current] = True
+
+        if goal is not None and current == goal:
+            break
+
+        for neighbor, weight in graph.neighbors(current):
+            if visited[neighbor]:
+                continue
+            new_dist = dist[current] + weight
+            if new_dist < dist[neighbor]:
+                dist[neighbor] = new_dist
+                prev[neighbor] = current
+
+    return dist, prev
+
+
+def reconstruct_path(prev, start, goal):
+    if goal not in prev:
+        return None
+    path = []
+    node = goal
+    while node is not None:
+        path.append(node)
+        if node == start:
+            break
+        node = prev[node]
+    path.reverse()
+    if not path or path[0] != start:
+        return None
+    return path
+
+
+def shortest_path_dijkstra(graph, start, goal):
+    dist, prev = dijkstra(graph, start, goal)
+    path = reconstruct_path(prev, start, goal)
+    if path is None:
+        return None, math.inf
+    return path, dist[goal]
