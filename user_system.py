@@ -110,3 +110,9 @@ class UserSystem:
         self.scores_bst.update(username, user.score)
         self.leaderboard.update_score(username, user.score)
         self.save()
+
+    def top_player(self):
+        return self.leaderboard.peek_max()
+
+    def top_players(self, n=10):
+        return self.leaderboard.top_n(n)
