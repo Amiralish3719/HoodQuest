@@ -98,3 +98,15 @@ class UserSystem:
             return False, "Incorrect password.", None
 
         return True, f"Welcome, {username}!", user
+
+    def get_score(self, username):
+        return self.scores_bst.search(username)
+
+    def add_round_score(self, username, round_score):
+        user = self.users.get(username)
+        if user is None:
+            return
+        user.score += round_score
+        self.scores_bst.update(username, user.score)
+        self.leaderboard.update_score(username, user.score)
+        self.save()
