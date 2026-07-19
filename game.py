@@ -1,6 +1,6 @@
 from data_structures import Stack
 
-from graph import build_game_map
+from graph import build_game_map, dijkstra, reconstruct_path,a_star
 
 import random
 
@@ -37,3 +37,13 @@ class HoodQuestGame:
         self.player_pos = random.choice(candidates)
         remaining = [n for n in candidates if n != self.player_pos]
         self.wolf_pos = random.choice(remaining)
+
+    def suggested_path(self):
+        dist, prev = dijkstra(self.graph, self.player_pos, self.goal)
+        path = reconstruct_path(prev, self.player_pos, self.goal)
+        cost = dist[self.player_pos] if path else None
+        return path, cost
+
+    def suggested_path_astar(self):
+        path, cost = a_star(self.graph, self.player_pos, self.goal)
+        return path, cost
