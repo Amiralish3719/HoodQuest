@@ -106,3 +106,14 @@ def bfs_shortest_path(graph, start, goal):
 
     while not q.is_empty():
         current = q.dequeue()
+        if current in visited:
+            continue
+        visited.add(current)
+        for neighbor, _weight in graph.neighbors(current):
+            if neighbor not in visited:
+                prev[neighbor] = current
+                if neighbor == goal:
+                    return reconstruct_path(prev, start, goal)
+                q.enqueue(neighbor)
+
+    return None
