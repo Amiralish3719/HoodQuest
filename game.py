@@ -50,3 +50,6 @@ class HoodQuestGame:
     
     def valid_moves(self):
         return [n for n, _w in self.graph.neighbors(self.player_pos)]
+
+    def begin_turn_snapshot(self):
+        return GameState(self.player_pos, self.wolf_pos, self.score)
