@@ -92,3 +92,17 @@ def shortest_path_dijkstra(graph, start, goal):
     if path is None:
         return None, math.inf
     return path, dist[goal]
+
+
+def bfs_shortest_path(graph, start, goal):
+
+    if start == goal:
+        return [start]
+
+    visited = set()
+    prev = {start: None}
+    q = Queue()
+    q.enqueue(start)
+
+    while not q.is_empty():
+        current = q.dequeue()
