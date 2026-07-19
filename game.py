@@ -53,3 +53,6 @@ class HoodQuestGame:
 
     def begin_turn_snapshot(self):
         return GameState(self.player_pos, self.wolf_pos, self.score)
+
+    def is_valid_move(self, target_node):
+        return self.graph.has_edge(self.wolf_pos, target_node)
