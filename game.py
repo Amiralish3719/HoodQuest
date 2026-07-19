@@ -47,3 +47,6 @@ class HoodQuestGame:
     def suggested_path_astar(self):
         path, cost = a_star(self.graph, self.player_pos, self.goal)
         return path, cost
+    
+    def valid_moves(self):
+        return [n for n, _w in self.graph.neighbors(self.player_pos)]
