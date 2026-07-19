@@ -2,6 +2,8 @@ from data_structures import Stack
 
 from graph import build_game_map
 
+import random
+
 class GameState:
     __slots__ = ("player_pos", "wolf_pos", "score")
 
@@ -29,3 +31,9 @@ class HoodQuestGame:
         self.game_over = False
         self.result = None
         self._setup_initial_positions()
+
+    def _setup_initial_positions(self):
+        candidates = [n for n in self.graph.nodes() if n != self.goal]
+        self.player_pos = random.choice(candidates)
+        remaining = [n for n in candidates if n != self.player_pos]
+        self.wolf_pos = random.choice(remaining)
