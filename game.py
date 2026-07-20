@@ -47,3 +47,12 @@ class HoodQuestGame:
     def suggested_path_astar(self):
         path, cost = a_star(self.graph, self.player_pos, self.goal)
         return path, cost
+    
+    def valid_moves(self):
+        return [n for n, _w in self.graph.neighbors(self.player_pos)]
+
+    def begin_turn_snapshot(self):
+        return GameState(self.player_pos, self.wolf_pos, self.score)
+
+    def is_valid_move(self, target_node):
+        return self.graph.has_edge(self.wolf_pos, target_node)
