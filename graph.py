@@ -99,21 +99,22 @@ def bfs_shortest_path(graph, start, goal):
     if start == goal:
         return [start]
 
-    visited = set()
+    visited = {start}
     prev = {start: None}
     q = Queue()
     q.enqueue(start)
 
     while not q.is_empty():
         current = q.dequeue()
-        if current in visited:
-            continue
-        visited.add(current)
         for neighbor, _weight in graph.neighbors(current):
             if neighbor not in visited:
+                visited.add(neighbor)
                 prev[neighbor] = current
                 if neighbor == goal:
                     return reconstruct_path(prev, start, goal)
                 q.enqueue(neighbor)
 
     return None
+
+def _euclidean(p1, p2):
+    return math.hypot(p1[0] - p2[0], p1[1] - p2[1])
