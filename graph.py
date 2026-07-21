@@ -118,3 +118,30 @@ def bfs_shortest_path(graph, start, goal):
 
 def _euclidean(p1, p2):
     return math.hypot(p1[0] - p2[0], p1[1] - p2[1])
+
+
+    nodes = graph.nodes()
+    g_score = {n: math.inf for n in nodes}
+    f_score = {n: math.inf for n in nodes}
+    prev = {n: None for n in nodes}
+    g_score[start] = 0
+
+    def h(n):
+        return _euclidean(graph.position(n), graph.position(start)) * heuristic_scale
+
+    f_score[start] = h(start)
+    open_set = {start}
+    closed_set = set()
+
+    while open_set:
+        current = min(open_set, key=lambda n: f_score[n])
+        if current == goal:
+            path = reconstruct_path(prev, start, goal)
+            return path, g_score[goal]
+
+        open_set.remove(current)
+        closed_set.add(current)
+
+        for neighbor, weight in graph.neighbors(current):
+            if neighbor in closed_set:
+                continue
