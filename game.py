@@ -93,3 +93,6 @@ class HoodQuestGame:
         self.wolf_pos = prev_state.wolf_pos
         self.score = prev_state.score
         return True, f"Previous turn restored ({self.UNDO_PENALTY} point penalty)."
+
+    def roll_die(self):
+        return random.randint(1, 6)
