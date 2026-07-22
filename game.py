@@ -84,3 +84,12 @@ class HoodQuestGame:
             return True, move_msg + " | You ran straight into the wolf! You lost."
 
         return True, move_msg
+
+    def apply_undo(self):
+        if self.undo_stack.is_empty():
+            return False, "There is no previous turn to undo."
+        prev_state = self.undo_stack.pop()
+        self.player_pos = prev_state.player_pos
+        self.wolf_pos = prev_state.wolf_pos
+        self.score = prev_state.score
+        return True, f"Previous turn restored ({self.UNDO_PENALTY} point penalty)."
