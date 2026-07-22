@@ -1,6 +1,6 @@
 from data_structures import Stack
 
-from graph import build_game_map, dijkstra, reconstruct_path,a_star
+from graph import build_game_map, dijkstra, reconstruct_path,a_star,bfs_shortest_path
 
 import random
 
@@ -96,3 +96,25 @@ class HoodQuestGame:
 
     def roll_die(self):
         return random.randint(1, 6)
+
+    def wolf_turn(self):
+        if self.game_over:
+            return None, False, ""
+
+        die = self.roll_die()
+        if die % 2 == 0:
+            return die, False, f"Wolf's die roll: {die} (odd) -> the wolf stays in place."
+
+        path = bfs_shortest_path(self.graph, self.wolf_pos, self.player_pos)
+        if not path or len(path) < 2:
+            return die, False, f"Wolf's die roll: {die} (even) -> but no path was found."
+
+        next_wolf_pos = path[1]
+        self.wolf_pos = next_wolf_pos
+        msg = f"Wolf's die roll: {die} (even) -> the wolf moved one step toward you ({self.wolf_pos})."
+
+        if self.wolf_pos == self.player_pos:
+            self.game_over = True
+            self.result = "lose"
+            msg += " The wolf caught you! You lost."
+        return die, True, msg
