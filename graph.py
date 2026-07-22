@@ -120,6 +120,8 @@ def _euclidean(p1, p2):
     return math.hypot(p1[0] - p2[0], p1[1] - p2[1])
 
 
+def a_star(graph, start, goal, heuristic_scale=2.2):
+
     nodes = graph.nodes()
     g_score = {n: math.inf for n in nodes}
     f_score = {n: math.inf for n in nodes}
@@ -145,3 +147,12 @@ def _euclidean(p1, p2):
         for neighbor, weight in graph.neighbors(current):
             if neighbor in closed_set:
                 continue
+            tentative_g = g_score[current] + weight
+            if tentative_g < g_score[neighbor]:
+                prev[neighbor] = current
+                g_score[neighbor] = tentative_g
+                f_score[neighbor] = tentative_g + h(neighbor)
+                open_set.add(neighbor)
+
+    return None, math.inf
+
