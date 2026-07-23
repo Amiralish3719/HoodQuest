@@ -102,7 +102,7 @@ class HoodQuestGame:
             return None, False, ""
 
         die = self.roll_die()
-        if die % 2 == 0:
+        if die % 2 != 0:
             return die, False, f"Wolf's die roll: {die} (odd) -> the wolf stays in place."
 
         path = bfs_shortest_path(self.graph, self.wolf_pos, self.player_pos)
