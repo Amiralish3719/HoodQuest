@@ -1,3 +1,4 @@
+import user_system
 import sys
 DIVIDER = "=" * 60
 def print_header(title):
@@ -11,3 +12,11 @@ def prompt(msg):
     except (EOFError, KeyboardInterrupt):
         print("\nExiting the program...")
         sys.exit(0)
+
+def handle_sign_up(user_system: UserSystem):
+    print_header("Create a New Account")
+    username = prompt("New username: ")
+    password = prompt("Password: ")
+    ok, message = user_system.sign_up(username, password)
+    print((">> " if ok else "!! ") + message)
+    print()
