@@ -191,3 +191,7 @@ def build_game_map():
         ("T", "U", 2),
         ("U", "V", 3),
     ]
+    for u, v, w in edges:
+        g.add_edge(u, v, w)
+
+    return g, "V"
