@@ -91,7 +91,7 @@ class HoodQuestGame:
         prev_state = self.undo_stack.pop()
         self.player_pos = prev_state.player_pos
         self.wolf_pos = prev_state.wolf_pos
-        self.score = prev_state.score
+        self.score = prev_state.score + self.UNDO
         return True, f"Previous turn restored ({self.UNDO_PENALTY} point penalty)."
 
     def roll_die(self):
