@@ -1,4 +1,4 @@
-import user_system
+from user_system import UserSystem
 import sys
 DIVIDER = "=" * 60
 def print_header(title):
@@ -18,5 +18,5 @@ def handle_sign_up(user_system: UserSystem):
     username = prompt("New username: ")
     password = prompt("Password: ")
     ok, message = user_system.sign_up(username, password)
-    print((">> " if not ok else "!! ") + message)
+    print((">> " if ok else "!! ") + message)
     print()
