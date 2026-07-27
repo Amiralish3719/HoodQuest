@@ -1,3 +1,4 @@
+import sys
 DIVIDER = "=" * 60
 def print_header(title):
     print(DIVIDER)
