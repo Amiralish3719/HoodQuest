@@ -120,3 +120,4 @@ class HoodQuestGame:
         return die, True, msg
         def push_completed_turn(self, snapshot):
             self.undo_stack.push(snapshot)
+            self.turn_number += 1
