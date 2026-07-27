@@ -118,3 +118,5 @@ class HoodQuestGame:
             self.result = "lose"
             msg += " The wolf caught you! You lost."
         return die, True, msg
+        def push_completed_turn(self, snapshot):
+            self.undo_stack.push(snapshot)
