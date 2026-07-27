@@ -41,7 +41,7 @@ class HoodQuestGame:
     def suggested_path(self):
         dist, prev = dijkstra(self.graph, self.player_pos, self.goal)
         path = reconstruct_path(prev, self.player_pos, self.goal)
-        cost = dist[self.player_pos] if path else None
+        cost = dist[self.goal] if path else None
         return path, cost
 
     def suggested_path_astar(self):
