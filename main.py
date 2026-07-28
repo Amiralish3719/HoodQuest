@@ -165,13 +165,21 @@ def play_game(user_system: UserSystem, username):
                 if ok:
                     snapshot_start = game.begin_turn_snapshot()
                 continue
+
+            if choice == "0":
+                quit_early = True
+                turn_resolved = True
+                continue
+
             if choice == "1":
                 if suggested_next is None:
                     print("!! There is currently no path to suggest.\n")
                     continue
                 target = suggested_next
+
             elif choice == "2":
                 target = prompt("Enter the destination node name: ").strip().upper()
+
             else:
                 print("!! Invalid option.\n")
                 continue
