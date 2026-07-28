@@ -136,7 +136,7 @@ def play_game(user_system: UserSystem, username):
         turn_resolved = False
 
         while not turn_resolved and not game.game_over:
-            
+
             render_state(game)
             path, cost = game.suggested_path()
             suggested_next = render_suggestion(path, cost)
@@ -146,3 +146,24 @@ def play_game(user_system: UserSystem, username):
             print("Options:")
             print("  1) Move along the Dijkstra-suggested path")
             print("  2) Move manually to one of the neighboring nodes")
+
+            choice = prompt("Your choice: ").strip()
+
+            if choice == "1":
+                if suggested_next is None:
+                    print("!! There is currently no path to suggest.\n")
+                    continue
+                target = suggested_next
+            elif choice == "2":
+                target = prompt("Enter the destination node name: ").strip().upper()
+            else:
+                print("!! Invalid option.\n")
+                continue
+
+            ok, msg = game.apply_player_move(target, suggested_next)
+            print((">> " if ok else "!! ") + msg + "\n")
+            if not ok:
+                continue
+            if game.game_over:
+                turn_resolved = True
+                continue
