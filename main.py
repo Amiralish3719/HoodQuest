@@ -121,3 +121,28 @@ def render_suggestion(path, cost):
     print(f"Dijkstra suggested path: {' -> '.join(path)}  (total cost: {cost})")
     print(f"Suggested next node: {next_node}")
     return next_node
+
+def play_game(user_system: UserSystem, username):
+    game = HoodQuestGame()
+    print_header("New Game Started!")
+    print(f"Little Red is at node '{game.player_pos}' and the wolf is at node '{game.wolf_pos}'.")
+    print(f"Goal: reach Grandma's house at node '{game.goal}' without running into the wolf.\n")
+
+    quit_early = False
+
+    while not game.game_over and not quit_early:
+
+        snapshot_start = game.begin_turn_snapshot()
+        turn_resolved = False
+
+        while not turn_resolved and not game.game_over:
+            
+            render_state(game)
+            path, cost = game.suggested_path()
+            suggested_next = render_suggestion(path, cost)
+
+            neighbors = [n for n, _w in game.graph.neighbors(game.player_pos)]
+            print(f"Available neighboring nodes: {', '.join(sorted(neighbors))}")
+            print("Options:")
+            print("  1) Move along the Dijkstra-suggested path")
+            print("  2) Move manually to one of the neighboring nodes")
