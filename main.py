@@ -117,7 +117,7 @@ def render_suggestion(path, cost):
     if not path:
         print(">> Warning: no path to Grandma's house was found!")
         return None
-    next_node = path[0]
+    next_node = path[1] if len(path) > 1 else path[0]
     print(f"Dijkstra suggested path: {' -> '.join(path)}  (total cost: {cost})")
     print(f"Suggested next node: {next_node}")
     return next_node
