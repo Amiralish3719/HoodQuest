@@ -20,3 +20,14 @@ def handle_sign_up(user_system: UserSystem):
     ok, message = user_system.sign_up(username, password)
     print((">> " if ok else "!! ") + message)
     print()
+
+def handle_login(user_system: UserSystem):
+    print_header("Log In")
+    username = prompt("Username: ")
+    password = prompt("Password: ")
+    ok, message, user = user_system.login(username, password)
+    print((">> " if ok else "!! ") + message)
+    print()
+    if ok:
+        return user.username
+    return None
