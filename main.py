@@ -112,3 +112,12 @@ def render_state(game: HoodQuestGame):
     print(DIVIDER)
     print(f"Turn: {game.turn_number - 1}")
     print(f"Your position: {game.player_pos}   |   Wolf's position: {game.wolf_pos}   |   Round score: {game.score}")
+
+def render_suggestion(path, cost):
+    if not path:
+        print(">> Warning: no path to Grandma's house was found!")
+        return None
+    next_node = path[0]
+    print(f"Dijkstra suggested path: {' -> '.join(path)}  (total cost: {cost})")
+    print(f"Suggested next node: {next_node}")
+    return next_node
