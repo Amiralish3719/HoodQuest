@@ -1,20 +1,27 @@
 from user_system import UserSystem
+
 from game import HoodQuestGame
+
 import sys
+
 DIVIDER = "=" * 60
+
 def print_header(title):
+
     print(DIVIDER)
     print(title.center(60))
     print(DIVIDER)
 
 def prompt(msg):
+
     try:
         return input(msg)
     except (EOFError, KeyboardInterrupt):
-        print("\nExiting the program...")
+        print("\nExiting the program... ")
         sys.exit(0)
 
 def handle_sign_up(user_system: UserSystem):
+
     print_header("Create a New Account")
     username = prompt("New username: ")
     password = prompt("Password: ")
@@ -23,6 +30,7 @@ def handle_sign_up(user_system: UserSystem):
     print()
 
 def handle_login(user_system: UserSystem):
+
     print_header("Log In")
     username = prompt("Username: ")
     password = prompt("Password: ")
@@ -41,12 +49,14 @@ def print_tutorial():
     print()
 
 def show_top_player(user_system: UserSystem):
+
     top = user_system.top_player()
     if top:
         score  , name = top
         print(f"\nCurrent top player: {name}  (score: {score})")
 
 def show_leaderboard(user_system: UserSystem):
+
     print_header("Top Players")
     top = user_system.top_players(10)
     if not top:
@@ -58,6 +68,7 @@ def show_leaderboard(user_system: UserSystem):
     print()
 
 def user_dashboard(user_system: UserSystem, username):
+
     while True:
         show_top_player(user_system)
         print_header(f"Player Dashboard: {username}")
@@ -71,18 +82,24 @@ def user_dashboard(user_system: UserSystem, username):
 
         if choice == "1":
             play_game(user_system, username)
+
         elif choice == "2":
             show_leaderboard(user_system)
+
         elif choice == "3":
             print_tutorial()
+
         elif choice == "4":
             print(f"Goodbye, {username}!\n")
             return
+        
         else:
             print(">> Invalid option.\n")
 
 def main_menu(user_system: UserSystem):
+
     while True:
+
         print_header("HoodQuest: The Algorithm Forest")
         print("1) Create a new account")
         print("2) Log in to an existing account")
@@ -92,25 +109,31 @@ def main_menu(user_system: UserSystem):
 
         if choice == "1":
             handle_sign_up(user_system)
+
         elif choice == "2":
             username = handle_login(user_system)
             if username:
                 user_dashboard(user_system, username)
+
         elif choice == "3":
             print_tutorial()
+
         elif choice == "4":
             print("  Goodbye! Don't forget the cookies... ")
             user_system.save()
             sys.exit(0)
+
         else:
             print(">> Invalid option. Please enter a number between 1 and 4.\n")
 
 def render_state(game: HoodQuestGame):
+
     print(DIVIDER)
     print(f"Turn: {game.turn_number}")
     print(f"Your position: {game.player_pos}   |   Wolf's position: {game.wolf_pos}   |   Round score: {game.score}")
 
 def render_suggestion(path, cost):
+
     if not path:
         print(">> Warning: no path to Grandma's house was found!")
         return None
@@ -120,7 +143,9 @@ def render_suggestion(path, cost):
     return next_node
 
 def play_game(user_system: UserSystem, username):
+
     game = HoodQuestGame()
+
     print_header("New Game Started!")
     print(f"Little Red is at node '{game.player_pos}' and the wolf is at node '{game.wolf_pos}'.")
     print(f"Goal: reach Grandma's house at node '{game.goal}' without running into the wolf.\n")
@@ -150,8 +175,10 @@ def play_game(user_system: UserSystem, username):
 
             if choice == "4":
                 a_path, a_cost = game.suggested_path_astar()
+
                 if a_path:
                     print(f">> A* suggested path: {' -> '.join(a_path)}  (estimated cost: {a_cost:.2f})\n")
+
                 else:
                     print(">> No path found with A*.\n")
                 continue
@@ -159,6 +186,7 @@ def play_game(user_system: UserSystem, username):
             if choice == "3":
                 ok, msg = game.apply_undo()
                 print((">> " if ok else "!! ") + msg + "\n")
+
                 if ok:
                     snapshot_start = game.begin_turn_snapshot()
                 continue
@@ -169,6 +197,7 @@ def play_game(user_system: UserSystem, username):
                 continue
 
             if choice == "1":
+
                 if suggested_next is None:
                     print("!! There is currently no path to suggest.\n")
                     continue
@@ -197,6 +226,7 @@ def play_game(user_system: UserSystem, username):
             turn_resolved = True
 
     print_header("Game Over")
+    
     if game.result == "win":
         print(" Congratulations! Little Red made it safely to Grandma's house.")
 
