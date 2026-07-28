@@ -129,7 +129,7 @@ def a_star(graph, start, goal, heuristic_scale=2.2):
     g_score[start] = 0
 
     def h(n):
-        return _euclidean(graph.position(n), graph.position(start)) * heuristic_scale
+        return _euclidean(graph.position(n), graph.position(goal)) * heuristic_scale
 
     f_score[start] = h(start)
     open_set = {start}
