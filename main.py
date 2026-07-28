@@ -82,3 +82,27 @@ def user_dashboard(user_system: UserSystem, username):
 
 def play_game(user_system: UserSystem, username):
     print("  Coming soon... ")
+
+def main_menu(user_system: UserSystem):
+    while True:
+        print_header("HoodQuest: The Algorithm Forest")
+        print("1) Create a new account")
+        print("2) Log in to an existing account")
+        print("3) How to play")
+        print("4) Exit")
+        choice = prompt("Your choice: ").strip()
+
+        if choice == "1":
+            username = handle_login(user_system)
+            if username:
+                user_dashboard(user_system, username)
+        elif choice == "2":
+            handle_sign_up(user_system)
+        elif choice == "3":
+            print_tutorial()
+        elif choice == "4":
+            print("  Goodbye! Don't forget the cookies... ")
+            user_system.save()
+            sys.exit(0)
+        else:
+            print(">> Invalid option. Please enter a number between 1 and 4.\n")
