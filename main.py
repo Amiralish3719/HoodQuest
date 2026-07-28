@@ -33,8 +33,14 @@ def handle_login(user_system: UserSystem):
     return None
 
 def print_tutorial():
-    
+
     print_header("How to Play")
     prompt("Press Enter to go back...")
     
     print()
+
+def show_top_player(user_system: UserSystem):
+    top = user_system.top_player()
+    if top:
+        score  , name = top
+        print(f"\nCurrent top player: {name}  (score: {score})")
