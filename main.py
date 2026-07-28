@@ -164,6 +164,10 @@ def play_game(user_system: UserSystem, username):
             print((">> " if ok else "!! ") + msg + "\n")
             if not ok:
                 continue
+
+            die, moved, wolf_msg = game.wolf_turn()
+            print(wolf_msg + "\n")
+            
             if game.game_over:
                 turn_resolved = True
                 continue
