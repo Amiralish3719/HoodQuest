@@ -55,3 +55,29 @@ def show_leaderboard(user_system: UserSystem):
         for i, (score, name) in enumerate(top, start=1):
             print(f"{i:<6}{name:<20}{score:<10}")
     print()
+
+def user_dashboard(user_system: UserSystem, username):
+    while True:
+        show_top_player(user_system)
+        print_header(f"Player Dashboard: {username}")
+        my_score = user_system.get_score(username)
+        print(f"Your total score: {my_score}")
+        print("1) Start game")
+        print("2) Show leaderboard")
+        print("3) How to play")
+        print("4) Log out")
+        choice = prompt("Your choice: ").strip()
+
+        if choice == "1":
+            play_game(user_system, username)
+        elif choice == "2":
+            show_leaderboard(user_system)
+        elif choice == "3":
+            print_tutorial()
+        elif choice == "4":
+            print(f"Goodbye, {username}!\n")
+        else:
+            print(">> Invalid option.\n")
+
+def play_game(user_system: UserSystem, username):
+    print("  Coming soon... ")
