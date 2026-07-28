@@ -31,3 +31,10 @@ def handle_login(user_system: UserSystem):
     if ok:
         return user.username
     return None
+
+def print_tutorial():
+    
+    print_header("How to Play")
+    prompt("Press Enter to go back...")
+    
+    print()
