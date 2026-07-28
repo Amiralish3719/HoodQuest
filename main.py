@@ -47,7 +47,7 @@ def show_top_player(user_system: UserSystem):
 
 def show_leaderboard(user_system: UserSystem):
     print_header("Top Players")
-    top = user_system.top_players(1)
+    top = user_system.top_players(10)
     if not top:
         print("No player has scored any points yet.")
     else:
