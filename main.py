@@ -81,9 +81,6 @@ def user_dashboard(user_system: UserSystem, username):
         else:
             print(">> Invalid option.\n")
 
-def play_game(user_system: UserSystem, username):
-    print("  Coming soon... ")
-
 def main_menu(user_system: UserSystem):
     while True:
         print_header("HoodQuest: The Algorithm Forest")
