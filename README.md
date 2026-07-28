@@ -16,18 +16,16 @@ This project was built to design and implement a simulation game grounded in the
 
 ---
 
-## Table of Contents
+Final project for our Data Structures and Algorithms course.
 
-- [Project Structure](#project-structure)
-- [Requirements and Running the Project](#requirements-and-running-the-project)
-- [How to Play](#how-to-play)
-- [Game Rules](#game-rules)
-- [Movement System](#movement-system)
-- [Scoring System](#scoring-system)
-- [User System](#user-system)
-- [Data Structures and Algorithms Used](#data-structures-and-algorithms-used)
-- [Bonus / Extra-Credit Features](#bonus--extra-credit-features)
-- [Implementation Requirements](#implementation-requirements)
-- [Team Members](#team-members)
+The idea is simple: Little Red Riding Hood has to cross a forest (modeled as a graph) and reach Grandma's house before the wolf gets to her. Along the way we had to use a bunch of the stuff we learned this semester — graphs, stacks, queues, hash tables, a BST, a heap, and pathfinding with Dijkstra/BFS/A*.
 
----
+## Files
+
+- `main.py` – the menus and the main game loop (this is what you run)
+- `game.py` – the actual game logic: player/wolf movement, Undo, scoring
+- `graph.py` – the Graph class, Dijkstra, BFS, A*, and the map itself
+- `data_structures.py` – our own Stack, Queue, HashTable, MaxHeap and BST
+- `user_system.py` – sign up / login / password hashing / saving scores to disk
+
+None of the data structures or the Dijkstra/BFS implementations use Python's built-in stuff (no `heapq`, no `collections.deque`) — we wrote all of that ourselves, since that was one of the requirements.
