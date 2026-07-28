@@ -93,11 +93,11 @@ def main_menu(user_system: UserSystem):
         choice = prompt("Your choice: ").strip()
 
         if choice == "1":
+            handle_sign_up(user_system)
+        elif choice == "2":
             username = handle_login(user_system)
             if username:
                 user_dashboard(user_system, username)
-        elif choice == "2":
-            handle_sign_up(user_system)
         elif choice == "3":
             print_tutorial()
         elif choice == "4":
