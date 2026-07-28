@@ -226,7 +226,7 @@ def play_game(user_system: UserSystem, username):
             turn_resolved = True
 
     print_header("Game Over")
-    
+
     if game.result == "win":
         print(" Congratulations! Little Red made it safely to Grandma's house.")
 
@@ -242,3 +242,18 @@ def play_game(user_system: UserSystem, username):
     print(f"Your new total score: {new_total}\n")
     prompt("Press Enter to return to your dashboard...")
     print()
+
+def main():
+    user_system = UserSystem(storage_path="users_data.json")
+    try:
+        main_menu(user_system)
+    except SystemExit:
+        raise
+    except Exception as exc:  # safety net against unexpected errors
+        print(f"\n!! An unexpected error occurred: {exc}")
+        user_system.save()
+        sys.exit(1)
+
+
+if __name__ == "__main__":
+    main()
