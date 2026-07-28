@@ -29,3 +29,36 @@ The idea is simple: Little Red Riding Hood has to cross a forest (modeled as a g
 - `user_system.py` – sign up / login / password hashing / saving scores to disk
 
 None of the data structures or the Dijkstra/BFS implementations use Python's built-in stuff (no `heapq`, no `collections.deque`) — we wrote all of that ourselves, since that was one of the requirements.
+
+## How to run it
+
+You just need Python 3, nothing else to install.
+
+```bash
+python3 main.py
+```
+
+It'll ask you to sign up or log in first, then you get a dashboard where you can start a game, check the leaderboard, or read the instructions.
+
+## The map
+
+The forest is a weighted, undirected graph. Node `V` is Grandma's house. When a game starts, the player and the wolf both get random starting positions, the only rule being that neither of them starts on `V` and they don't start on the same node as each other.
+
+Once the game starts, we run Dijkstra from the player's position to `V` and show that as the suggested path.
+
+## Turn order
+
+Every turn goes through the same sequence:
+
+1. Run Dijkstra from the player to V
+2. Show the suggested path / next node
+3. Player either moves or hits Undo
+4. Move gets applied, score gets updated
+5. Check if the player reached V (win)
+6. Check if the player walked into the wolf (instant loss)
+7. Roll a die for the wolf
+8. If the roll is even, the wolf moves one step using BFS
+9. Check if the wolf landed on the player (loss)
+10. Next turn
+
+Game ends either when the player reaches `V` (win) or the player and the wolf end up on the same node (loss). If you walk straight into the wolf's cell, you lose right away — you don't wait around for its turn.
