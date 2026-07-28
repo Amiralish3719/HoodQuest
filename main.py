@@ -110,7 +110,7 @@ def main_menu(user_system: UserSystem):
 
 def render_state(game: HoodQuestGame):
     print(DIVIDER)
-    print(f"Turn: {game.turn_number - 1}")
+    print(f"Turn: {game.turn_number}")
     print(f"Your position: {game.player_pos}   |   Wolf's position: {game.wolf_pos}   |   Round score: {game.score}")
 
 def render_suggestion(path, cost):
