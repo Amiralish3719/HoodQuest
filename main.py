@@ -44,3 +44,14 @@ def show_top_player(user_system: UserSystem):
     if top:
         score  , name = top
         print(f"\nCurrent top player: {name}  (score: {score})")
+
+def show_leaderboard(user_system: UserSystem):
+    print_header("Top Players")
+    top = user_system.top_players(1)
+    if not top:
+        print("No player has scored any points yet.")
+    else:
+        print(f"{'Rank':<6}{'Username':<20}{'Score':<10}")
+        for i, (score, name) in enumerate(top, start=1):
+            print(f"{i:<6}{name:<20}{score:<10}")
+    print()
