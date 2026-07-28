@@ -146,9 +146,15 @@ def play_game(user_system: UserSystem, username):
             print("Options:")
             print("  1) Move along the Dijkstra-suggested path")
             print("  2) Move manually to one of the neighboring nodes")
+            print("  3) Undo (revert the last completed turn)")
 
             choice = prompt("Your choice: ").strip()
-
+            if choice == "3":
+                ok, msg = game.apply_undo()
+                print((">> " if ok else "!! ") + msg + "\n")
+                if ok:
+                    snapshot_start = game.begin_turn_snapshot()
+                continue
             if choice == "1":
                 if suggested_next is None:
                     print("!! There is currently no path to suggest.\n")
@@ -167,7 +173,10 @@ def play_game(user_system: UserSystem, username):
 
             die, moved, wolf_msg = game.wolf_turn()
             print(wolf_msg + "\n")
-            
+
             if game.game_over:
                 turn_resolved = True
                 continue
+            
+            game.push_completed_turn(snapshot_start)
+            turn_resolved = True
