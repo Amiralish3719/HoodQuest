@@ -76,6 +76,7 @@ def user_dashboard(user_system: UserSystem, username):
             print_tutorial()
         elif choice == "4":
             print(f"Goodbye, {username}!\n")
+            return
         else:
             print(">> Invalid option.\n")
 
