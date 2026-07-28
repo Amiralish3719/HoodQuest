@@ -44,6 +44,22 @@ def handle_login(user_system: UserSystem):
 def print_tutorial():
 
     print_header("How to Play")
+
+    print("""
+Little Red Riding Hood must cross the forest (a weighted graph)
+and reach Grandma's house (node V) before the wolf catches her.
+Each turn the system uses Dijkstra's algorithm to suggest the shortest path to V.
+You can:
+1) Follow the suggested path (+3 points)
+2) Move to a different neighboring node (+1 point)
+3) Use Undo to revert the last completed turn (-2 points)
+Reaching Grandma's house gives a +5 point bonus.
+After your move a die is rolled for the wolf.
+On an even number the wolf uses BFS to take one step toward you.
+If you move onto the wolf's current cell or the wolf reaches your cell you lose.
+If you reach Grandma's house you win!!!
+""")
+    
     prompt("Press Enter to go back...")
     
     print()
