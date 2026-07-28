@@ -1,4 +1,5 @@
 from user_system import UserSystem
+from game import HoodQuestGame
 import sys
 DIVIDER = "=" * 60
 def print_header(title):
@@ -106,3 +107,8 @@ def main_menu(user_system: UserSystem):
             sys.exit(0)
         else:
             print(">> Invalid option. Please enter a number between 1 and 4.\n")
+
+def render_state(game: HoodQuestGame):
+    print(DIVIDER)
+    print(f"Turn: {game.turn_number - 1}")
+    print(f"Your position: {game.player_pos}   |   Wolf's position: {game.wolf_pos}   |   Round score: {game.score}")
