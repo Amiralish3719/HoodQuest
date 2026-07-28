@@ -210,6 +210,7 @@ def play_game(user_system: UserSystem, username):
         print("You quit the game early. Your score so far will still be saved.")
 
     print(f"Score earned this round: {game.score}")
+    user_system.add_round_score(username, game.score)
     new_total = user_system.get_score(username)
     print(f"Your new total score: {new_total}\n")
     prompt("Press Enter to return to your dashboard...")
