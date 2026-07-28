@@ -55,7 +55,7 @@ class HoodQuestGame:
         return GameState(self.player_pos, self.wolf_pos, self.score)
 
     def is_valid_move(self, target_node):
-        return self.graph.has_edge(self.wolf_pos, target_node)
+        return self.graph.has_edge(self.player_pos, target_node)
 
     def apply_player_move(self, target_node, suggested_next):
 
