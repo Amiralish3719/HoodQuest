@@ -198,3 +198,19 @@ def play_game(user_system: UserSystem, username):
             
             game.push_completed_turn(snapshot_start)
             turn_resolved = True
+
+    print_header("Game Over")
+    if game.result == "win":
+        print(" Congratulations! Little Red made it safely to Grandma's house.")
+
+    elif game.result == "lose":
+        print("The wolf got you! You lost...")
+
+    elif quit_early:
+        print("You quit the game early. Your score so far will still be saved.")
+
+    print(f"Score earned this round: {game.score}")
+    new_total = user_system.get_score(username)
+    print(f"Your new total score: {new_total}\n")
+    prompt("Press Enter to return to your dashboard...")
+    print()
