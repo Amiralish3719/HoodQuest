@@ -147,8 +147,18 @@ def play_game(user_system: UserSystem, username):
             print("  1) Move along the Dijkstra-suggested path")
             print("  2) Move manually to one of the neighboring nodes")
             print("  3) Undo (revert the last completed turn)")
+            print("  4) Show an alternative suggested path using A*")
 
             choice = prompt("Your choice: ").strip()
+
+            if choice == "4":
+                a_path, a_cost = game.suggested_path_astar()
+                if a_path:
+                    print(f">> A* suggested path: {' -> '.join(a_path)}  (estimated cost: {a_cost:.2f})\n")
+                else:
+                    print(">> No path found with A*.\n")
+                continue
+
             if choice == "3":
                 ok, msg = game.apply_undo()
                 print((">> " if ok else "!! ") + msg + "\n")
