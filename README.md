@@ -97,3 +97,36 @@ Signing up checks the username against a hash table so you can't register a dupl
 Logging in looks the username up in the same hash table and checks the password against the stored hash.
 
 After logging in, you see the current top player (pulled from a MaxHeap). Your own score is looked up from a BST. Usernames are case-sensitive, so `Ali` and `ali` count as two different accounts.
+
+## Where each data structure is actually used
+
+| Structure/Algorithm | Used for |
+|---|---|
+| Graph | the map itself |
+| Stack | Undo |
+| Queue | used inside BFS |
+| HashTable | user accounts (sign up / login) |
+| MaxHeap | leaderboard / top player |
+| BST | looking up a specific user's score |
+| Dijkstra | suggested shortest path for the player |
+| BFS | wolf's movement |
+| A* | alternative suggested path (extra credit part) |
+
+## Extra credit stuff we added
+
+- User scores are also kept in a BST so looking up one specific player's score is faster than scanning through everything.
+- Besides Dijkstra, there's an A* option too — you can ask for an A* suggested path as an alternative.
+
+## Notes from actually building this
+
+A couple of things came up while we were building/testing this that are probably worth mentioning:
+
+- We had a bug in the Undo logic where if you hit Undo in the middle of a turn (before finishing it), the snapshot that later got pushed to the stack was stale — so a second Undo could restore you to the wrong state. Fixed by re-grabbing the snapshot right after a successful Undo instead of only once at the start of the turn.
+- At one point `push_completed_turn` ended up with wrong indentation and got nested inside `wolf_turn()` (after a `return`, so it never even ran) — that gave an `AttributeError` the first time we actually tried to finish a turn in the game. Moving it back out to be its own method on `HoodQuestGame` fixed it.
+
+Both of these only showed up once we actually played through the game a bunch of times rather than just reading the code, so — test your stuff, even if it "looks right."
+
+## Team
+
+- ** Amin Mohammad Jabbari ** – worked on `user_system.py` and `game.py` and `main.py`
+- ** Amirali Sheikh Hassani ** – worked on `data_structures.py` and `graph.py`
