@@ -62,3 +62,38 @@ Every turn goes through the same sequence:
 10. Next turn
 
 Game ends either when the player reaches `V` (win) or the player and the wolf end up on the same node (loss). If you walk straight into the wolf's cell, you lose right away — you don't wait around for its turn.
+
+## Moving around
+
+You can only move to a node that's directly connected to where you are — no shortcuts through the graph. Two ways to pick where to go:
+
+- follow Dijkstra's suggestion
+- pick any other neighboring node manually
+
+You can also Undo the last completed turn (this uses a Stack under the hood — we push a snapshot of the game state before every turn). Undo isn't available until you've actually finished at least one turn, since there's nothing on the stack yet.
+
+The wolf only moves on an even die roll (six-sided die), and when it does move it uses BFS to find the shortest path to the player and takes exactly one step along it.
+
+## Scoring
+
+| What happened | Points |
+|---|---|
+| Followed Dijkstra's suggested path | +3 |
+| Moved somewhere else valid | +1 |
+| Used Undo | -2 |
+| Reached Grandma's house | +5 |
+
+A few things worth noting:
+- Score resets to 0 at the start of every round.
+- Dijkstra reruns after every move, so the suggested path can change from one turn to the next.
+- If the wolf catches you before you reach the goal, you don't get the +5 bonus, but whatever you scored up to that point is still saved.
+- Going back over a node you already visited is fine, it's scored like any normal move.
+- Whatever you score in a round gets added to your total score once the game ends.
+
+## Accounts / leaderboard
+
+Signing up checks the username against a hash table so you can't register a duplicate name. Passwords are hashed (with a salt) before being saved — we never store them as plain text.
+
+Logging in looks the username up in the same hash table and checks the password against the stored hash.
+
+After logging in, you see the current top player (pulled from a MaxHeap). Your own score is looked up from a BST. Usernames are case-sensitive, so `Ali` and `ali` count as two different accounts.
